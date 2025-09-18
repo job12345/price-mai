@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบคำนวณไหม - อัครพงษ์ฟาร์ม</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0fff4, #ffffff, #f0fff4);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-fade-in {
+            animation: resultFadeIn 0.4s ease-in-out;
+        }
+        @keyframes resultFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto flex flex-col items-center p-4">
+        <h1 class="text-2xl font-bold text-green-700 text-center mb-4 fade-in">
+            ระบบคำนวณ % ไหม และราคาซื้อ<br />อัครพงษ์ ฟาร์ม
+        </h1>
+
+        <div class="w-full max-w-md bg-white shadow-xl rounded-2xl mb-6">
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">ชื่อผู้ใช้งาน</label>
+                    <input id="userName" type="text" placeholder="กรุณากรอกชื่อของคุณ" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">จำนวนรังที่สุ่ม (รัง)</label>
+                    <input id="numRand" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังรวม (กรัม)</label>
+                    <input id="totalWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักตัวไหม (กรัม)</label>
+                    <input id="silkwormWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักเปลือกรัง (กรัม)</label>
+                    <input id="cocoonShellWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังดีที่จะขาย (กิโลกรัม)</label>
+                    <input id="goodCocoonWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังเสีย (กิโลกรัม)</label>
+                    <input id="badCocoonWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังหลังจ่อ (กิโลกรัม)</label>
+                    <input id="afterSortWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังฝ่อ (กิโลกรัม)</label>
+                    <input id="undevelopedWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังบาง (กิโลกรัม)</label>
+                    <input id="thinWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-sm font-medium text-gray-700">จำนวนกล่องที่เลี้ยง</label>
+                    <input id="boxCount" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                </div>
+
+                <div id="resultPanel" class="p-4 bg-green-50 border border-green-200 rounded-xl text-center result-fade-in">
+                    <div id="resultUserName" class="mb-2 font-medium text-green-800">
+                        ผลการคำนวณ
+                    </div>
+                    <p class="text-lg font-semibold text-green-700">% เปลือกรังไหม: <span id="shellPercentage">0.00</span>%</p>
+                    <p class="text-gray-600 mt-1">น้ำหนักรังเฉลี่ย: <span id="avgWeight">0.00</span> กรัม/รัง</p>
+                    <p class="text-gray-600 mt-1">ราคารับซื้อรังดี: <span id="pricePerKg">0.00</span> บาท/กก.</p>
+                    <p class="text-gray-600 mt-1">รายได้จากรังดี ≈ <span id="goodIncome">0.00</span> บาท</p>
+                    <p class="text-gray-600 mt-1">รายได้จากรังเสีย ≈ <span id="badIncome">0.00</span> บาท</p>
+                    <p class="text-gray-800 mt-2 font-bold">รายได้รวมทั้งหมด ≈ <span id="totalIncome">0.00</span> บาท</p>
+                </div>
+
+                <div class="flex flex-col space-y-2 mt-4">
+                    <button 
+                        id="toggleShareBtn"
+                        class="w-full py-2.5 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors"
+                    >
+                        แชร์ผลการคำนวณ
+                    </button>
+                    
+                    <div id="shareOptions" class="mt-2 flex flex-col space-y-2 hidden">
+                        <button 
+                            id="facebookShareBtn"
+                            class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg flex items-center justify-center transition-colors"
+                        >
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
+                            </svg>
+                            แชร์ไปยัง Facebook
+                        </button>
+                        
+                        <button 
+                            id="lineShareBtn"
+                            class="py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg flex items-center justify-center transition-colors"
+                        >
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.433.596-.065.021-.132.031-.2.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.433-.595.064-.022.131-.032.199-.032.211 0 .391.09.51.25l2.444 3.317V8.108c0-.345.282-.63.63-.63.345 0 .627.285.627.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.066l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"></path>
+                            </svg>
+                            แชร์ไปยัง Line
+                        </button>
+                        
+                        <button 
+                            id="saveImageBtn"
+                            class="py-2 px-4 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-lg flex items-center justify-center transition-colors"
+                        >
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            บันทึกเป็นรูปภาพ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-xs text-gray-500 mt-4 text-center">
+            &copy; <span id="currentYear"></span> อัครพงษ์ฟาร์ม - ระบบคำนวณไหม เวอร์ชัน 1.0
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Input elements
+            const userName = document.getElementById('userName');
+            const numRand = document.getElementById('numRand');
+            const totalWeight = document.getElementById('totalWeight');
+            const silkwormWeight = document.getElementById('silkwormWeight');
+            const cocoonShellWeight = document.getElementById('cocoonShellWeight');
+            const goodCocoonWeight = document.getElementById('goodCocoonWeight');
+            const badCocoonWeight = document.getElementById('badCocoonWeight');
+            const afterSortWeight = document.getElementById('afterSortWeight');
+            const undevelopedWeight = document.getElementById('undevelopedWeight');
+            const thinWeight = document.getElementById('thinWeight');
+            const boxCount = document.getElementById('boxCount');
+
+            // Result elements
+            const resultUserName = document.getElementById('resultUserName');
+            const shellPercentage = document.getElementById('shellPercentage');
+            const avgWeight = document.getElementById('avgWeight');
+            const pricePerKg = document.getElementById('pricePerKg');
+            const goodIncome = document.getElementById('goodIncome');
+            const badIncome = document.getElementById('badIncome');
+            const totalIncome = document.getElementById('totalIncome');
+
+            // Share buttons
+            const toggleShareBtn = document.getElementById('toggleShareBtn');
+            const shareOptions = document.getElementById('shareOptions');
+            const facebookShareBtn = document.getElementById('facebookShareBtn');
+            const lineShareBtn = document.getElementById('lineShareBtn');
+            const saveImageBtn = document.getElementById('saveImageBtn');
+
+            // Format number function
+            const formatNumber = (num) => {
+                return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            };
+
+            // Calculate function
+            const calculate = () => {
+                // User name
+                resultUserName.textContent = userName.value ? `ผลการคำนวณของคุณ ${userName.value}` : 'ผลการคำนวณ';
+
+                // Get values
+                const numRandVal = parseFloat(numRand.value) || 0;
+                const totalWeightVal = parseFloat(totalWeight.value) || 0;
+                const silkwormWeightVal = parseFloat(silkwormWeight.value) || 0;
+                let cocoonShellWeightVal = parseFloat(cocoonShellWeight.value) || 0;
+                const goodCocoonWeightVal = parseFloat(goodCocoonWeight.value) || 0;
+                const badCocoonWeightVal = parseFloat(badCocoonWeight.value) || 0;
+                const afterSortWeightVal = parseFloat(afterSortWeight.value) || 0;
+                const undevelopedWeightVal = parseFloat(undevelopedWeight.value) || 0;
+                const thinWeightVal = parseFloat(thinWeight.value) || 0;
+
+                // Calculate shell weight if not provided
+                if (!cocoonShellWeightVal && totalWeightVal && silkwormWeightVal) {
+                    cocoonShellWeightVal = totalWeightVal - silkwormWeightVal;
+                }
+
+                // Calculate percentage
+                let percent = 0;
+                if (totalWeightVal > 0) {
+                    percent = (cocoonShellWeightVal / totalWeightVal) * 100;
+                }
+
+                // Calculate average weight
+                let avg = 0;
+                if (numRandVal > 0) {
+                    avg = totalWeightVal / numRandVal;
+                }
+
+                // Price based on shell percentage
+                let price = 0;
+                const rounded = Math.round(percent);
+                if (rounded <= 16) price = 200;
+                else if (rounded === 17) price = 212.5;
+                else if (rounded === 18) price = 225;
+                else if (rounded === 19) price = 237.5;
+                else if (rounded === 20) price = 250;
+                else if (rounded === 21) price = 262.5;
+                else if (rounded === 22) price = 275;
+                else if (rounded === 23) price = 287.5;
+                else if (rounded === 24) price = 300;
+                else if (rounded === 25) price = 312.5;
+                else if (rounded >= 26) price = 325;
+
+                // Calculate income
+                const goodIncomeVal = goodCocoonWeightVal * price;
+                const badIncomeVal = (badCocoonWeightVal * 140) + (afterSortWeightVal * 140) + (undevelopedWeightVal * 140) + (thinWeightVal * 25);
+                const totalIncomeVal = goodIncomeVal + badIncomeVal;
+
+                // Update results
+                shellPercentage.textContent = formatNumber(percent);
+                avgWeight.textContent = formatNumber(avg);
+                pricePerKg.textContent = formatNumber(price);
+                goodIncome.textContent = formatNumber(goodIncomeVal);
+                badIncome.textContent = formatNumber(badIncomeVal);
+                totalIncome.textContent = formatNumber(totalIncomeVal);
+            };
+
+            // Add event listeners to all inputs
+            [numRand, totalWeight, silkwormWeight, cocoonShellWeight, goodCocoonWeight, 
+             badCocoonWeight, afterSortWeight, undevelopedWeight, thinWeight, boxCount].forEach(input => {
+                input.addEventListener('input', calculate);
+            });
+
+            // User name change event
+            userName.addEventListener('input', calculate);
+
+            // Share options toggle
+            toggleShareBtn.addEventListener('click', () => {
+                const isHidden = shareOptions.classList.contains('hidden');
+                if (isHidden) {
+                    shareOptions.classList.remove('hidden');
+                    toggleShareBtn.textContent = 'ซ่อนตัวเลือกการแชร์';
+                } else {
+                    shareOptions.classList.add('hidden');
+                    toggleShareBtn.textContent = 'แชร์ผลการคำนวณ';
+                }
+            });
+
+            // Facebook share
+            facebookShareBtn.addEventListener('click', () => {
+                const resultPanel = document.getElementById('resultPanel');
+                html2canvas(resultPanel).then(canvas => {
+                    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(`ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`)}`;
+                    window.open(facebookShareUrl, "_blank");
+                });
+            });
+
+            // Line share
+            lineShareBtn.addEventListener('click', () => {
+                const resultPanel = document.getElementById('resultPanel');
+                html2canvas(resultPanel).then(canvas => {
+                    const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`)}`;
+                    window.open(lineShareUrl, "_blank");
+                });
+            });
+
+            // Save image
+            saveImageBtn.addEventListener('click', () => {
+                const resultPanel = document.getElementById('resultPanel');
+                html2canvas(resultPanel).then(canvas => {
+                    const imageData = canvas.toDataURL("image/png");
+                    const link = document.createElement("a");
+                    link.href = imageData;
+                    link.download = `ผลการคำนวณไหม-${userName.value || 'ผู้ใช้งาน'}.png`;
+                    link.click();
+                });
+            });
+
+            // Initial calculation
+            calculate();
+        });
+    </script>
+</body>
+</html>
