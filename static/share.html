@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แชร์ผลการคำนวณ</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .facebook {
+            background-color: #1877F2;
+        }
+        .line {
+            background-color: #06C755;
+        }
+        .whatsapp {
+            background-color: #25D366;
+        }
+        .back {
+            background-color: #6B7280;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>ผลการคำนวณรังไหม</h2>
+    <p id="username"></p>
+    <img id="resultImage" alt="ผลการคำนวณรังไหม">
+    
+    <div class="buttons">
+        <button class="facebook" id="facebookShareBtn">แชร์ไปยัง Facebook</button>
+        <button class="line" id="lineShareBtn">แชร์ไปยัง Line</button>
+        <button class="whatsapp" id="whatsappShareBtn">แชร์ไปยัง WhatsApp</button>
+        <button class="back" id="backBtn">กลับไปหน้าคำนวณ</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // รับค่าพารามิเตอร์จาก URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const imageData = urlParams.get('image');
+            const username = urlParams.get('username') || 'ผู้ใช้งาน';
+            
+            // แสดงชื่อผู้ใช้
+            document.getElementById('username').textContent = 'คุณ ' + username;
+            
+            // แสดงรูปภาพ
+            if (imageData) {
+                document.getElementById('resultImage').src = imageData;
+            }
+            
+            // Facebook share
+            document.getElementById('facebookShareBtn').addEventListener('click', function() {
+                const userMessage = `ผลการคำนวณรังไหมของ ${username} - อัครพงษ์ฟาร์ม`;
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(userMessage)}`, '_blank');
+            });
+            
+            // Line share
+            document.getElementById('lineShareBtn').addEventListener('click', function() {
+                const userMessage = `ผลการคำนวณรังไหมของ ${username} - อัครพงษ์ฟาร์ม`;
+                window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(userMessage)}`, '_blank');
+            });
+            
+            // WhatsApp share
+            document.getElementById('whatsappShareBtn').addEventListener('click', function() {
+                const userMessage = `ผลการคำนวณรังไหมของ ${username} - อัครพงษ์ฟาร์ม`;
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(userMessage + '\n' + window.location.href)}`, '_blank');
+            });
+            
+            // Back button
+            document.getElementById('backBtn').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

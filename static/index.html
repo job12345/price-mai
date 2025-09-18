@@ -300,25 +300,13 @@
                 html2canvas(resultPanel).then(canvas => {
                     // แปลงรูปภาพเป็น Base64
                     const imageData = canvas.toDataURL("image/png");
-                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    const user = userName.value || 'ผู้ใช้งาน';
                     
-                    // ใช้ URI scheme ของ Facebook app โดยตรง
-                    const fbAppUrl = `fb://share?text=${encodeURIComponent(userMessage)}`;
+                    // สร้าง URL สำหรับหน้าแชร์
+                    const shareUrl = `share.html?image=${encodeURIComponent(imageData)}&username=${encodeURIComponent(user)}`;
                     
-                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
-                    try {
-                        window.location.href = fbAppUrl;
-                        
-                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ Facebook ติดตั้ง
-                        setTimeout(() => {
-                            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(userMessage)}`;
-                            window.open(facebookShareUrl, "_blank");
-                        }, 2000);
-                    } catch (e) {
-                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
-                        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(userMessage)}`;
-                        window.open(facebookShareUrl, "_blank");
-                    }
+                    // เปิดหน้าแชร์
+                    window.open(shareUrl, "_blank");
                 });
             });
 
@@ -326,26 +314,15 @@
             lineShareBtn.addEventListener('click', () => {
                 const resultPanel = document.getElementById('resultPanel');
                 html2canvas(resultPanel).then(canvas => {
+                    // แปลงรูปภาพเป็น Base64
                     const imageData = canvas.toDataURL("image/png");
-                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    const user = userName.value || 'ผู้ใช้งาน';
                     
-                    // ใช้ URI scheme ของ Line app โดยตรง
-                    const lineAppUrl = `line://msg/text/${encodeURIComponent(userMessage)}`;
+                    // สร้าง URL สำหรับหน้าแชร์
+                    const shareUrl = `share.html?image=${encodeURIComponent(imageData)}&username=${encodeURIComponent(user)}`;
                     
-                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
-                    try {
-                        window.location.href = lineAppUrl;
-                        
-                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ Line ติดตั้ง
-                        setTimeout(() => {
-                            const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(userMessage)}`;
-                            window.open(lineShareUrl, "_blank");
-                        }, 2000);
-                    } catch (e) {
-                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
-                        const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(userMessage)}`;
-                        window.open(lineShareUrl, "_blank");
-                    }
+                    // เปิดหน้าแชร์
+                    window.open(shareUrl, "_blank");
                 });
             });
 
@@ -376,25 +353,15 @@
             whatsappShareBtn.addEventListener('click', () => {
                 const resultPanel = document.getElementById('resultPanel');
                 html2canvas(resultPanel).then(canvas => {
-                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    // แปลงรูปภาพเป็น Base64
+                    const imageData = canvas.toDataURL("image/png");
+                    const user = userName.value || 'ผู้ใช้งาน';
                     
-                    // ใช้ URI scheme ของ WhatsApp app โดยตรง
-                    const whatsappAppUrl = `whatsapp://send?text=${encodeURIComponent(userMessage)}`;
+                    // สร้าง URL สำหรับหน้าแชร์
+                    const shareUrl = `share.html?image=${encodeURIComponent(imageData)}&username=${encodeURIComponent(user)}`;
                     
-                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
-                    try {
-                        window.location.href = whatsappAppUrl;
-                        
-                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ WhatsApp ติดตั้ง
-                        setTimeout(() => {
-                            const whatsappWebUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(userMessage)}`;
-                            window.open(whatsappWebUrl, "_blank");
-                        }, 2000);
-                    } catch (e) {
-                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
-                        const whatsappWebUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(userMessage)}`;
-                        window.open(whatsappWebUrl, "_blank");
-                    }
+                    // เปิดหน้าแชร์
+                    window.open(shareUrl, "_blank");
                 });
             });
 
