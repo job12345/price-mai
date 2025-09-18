@@ -40,52 +40,52 @@
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">จำนวนรังที่สุ่ม (รัง)</label>
-                    <input id="numRand" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="numRand" type="number" placeholder="กรอกจำนวนรัง" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังรวม (กรัม)</label>
-                    <input id="totalWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="totalWeight" type="number" placeholder="กรอกน้ำหนักรวม" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักตัวไหม (กรัม)</label>
-                    <input id="silkwormWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="silkwormWeight" type="number" placeholder="กรอกน้ำหนักตัวไหม" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักเปลือกรัง (กรัม)</label>
-                    <input id="cocoonShellWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="cocoonShellWeight" type="number" placeholder="กรอกน้ำหนักเปลือกรัง" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังดีที่จะขาย (กิโลกรัม)</label>
-                    <input id="goodCocoonWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="goodCocoonWeight" type="number" placeholder="กรอกน้ำหนักรังดี" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังเสีย (กิโลกรัม)</label>
-                    <input id="badCocoonWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="badCocoonWeight" type="number" placeholder="กรอกน้ำหนักรังเสีย" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังหลังจ่อ (กิโลกรัม)</label>
-                    <input id="afterSortWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="afterSortWeight" type="number" placeholder="กรอกน้ำหนักรังหลังจ่อ" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังฝ่อ (กิโลกรัม)</label>
-                    <input id="undevelopedWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="undevelopedWeight" type="number" placeholder="กรอกน้ำหนักรังฝ่อ" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">น้ำหนักรังบาง (กิโลกรัม)</label>
-                    <input id="thinWeight" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="thinWeight" type="number" placeholder="กรอกน้ำหนักรังบาง" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">จำนวนกล่องที่เลี้ยง</label>
-                    <input id="boxCount" type="number" value="0" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input id="boxCount" type="number" placeholder="กรอกจำนวนกล่อง" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
 
                 <div id="resultPanel" class="p-4 bg-green-50 border border-green-200 rounded-xl text-center result-fade-in">
@@ -98,6 +98,7 @@
                     <p class="text-gray-600 mt-1">รายได้จากรังดี ≈ <span id="goodIncome">0.00</span> บาท</p>
                     <p class="text-gray-600 mt-1">รายได้จากรังเสีย ≈ <span id="badIncome">0.00</span> บาท</p>
                     <p class="text-gray-800 mt-2 font-bold">รายได้รวมทั้งหมด ≈ <span id="totalIncome">0.00</span> บาท</p>
+                    <p class="text-green-700 mt-2 font-semibold border-t border-green-200 pt-2">รายได้ต่อกล่อง ≈ <span id="incomePerBox">0.00</span> บาท/กล่อง</p>
                 </div>
 
                 <div class="flex flex-col space-y-2 mt-4">
@@ -130,6 +131,16 @@
                         </button>
                         
                         <button 
+                            id="whatsappShareBtn"
+                            class="py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg flex items-center justify-center transition-colors"
+                        >
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                            </svg>
+                            แชร์ไปยัง WhatsApp
+                        </button>
+                        
+                        <button 
                             id="saveImageBtn"
                             class="py-2 px-4 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-lg flex items-center justify-center transition-colors"
                         >
@@ -145,6 +156,12 @@
         
         <div class="text-xs text-gray-500 mt-4 text-center">
             &copy; <span id="currentYear"></span> อัครพงษ์ฟาร์ม - ระบบคำนวณไหม เวอร์ชัน 1.0
+        </div>
+        
+        <div class="flex justify-center mt-3 mb-2">
+            <a href="https://www.freecounterstat.com" title="free hit counter" target="_blank" class="inline-block">
+                <img src="https://counter1.optistats.ovh/private/freecounterstat.php?c=kuzmwxk24dmnd2qcg6zmzw9dc2puc5hb" border="0" title="free hit counter" alt="free hit counter">
+            </a>
         </div>
     </div>
 
@@ -175,6 +192,7 @@
             const goodIncome = document.getElementById('goodIncome');
             const badIncome = document.getElementById('badIncome');
             const totalIncome = document.getElementById('totalIncome');
+            const incomePerBox = document.getElementById('incomePerBox');
 
             // Share buttons
             const toggleShareBtn = document.getElementById('toggleShareBtn');
@@ -240,6 +258,10 @@
                 const goodIncomeVal = goodCocoonWeightVal * price;
                 const badIncomeVal = (badCocoonWeightVal * 140) + (afterSortWeightVal * 140) + (undevelopedWeightVal * 140) + (thinWeightVal * 25);
                 const totalIncomeVal = goodIncomeVal + badIncomeVal;
+                
+                // Calculate income per box
+                const boxCountVal = parseFloat(boxCount.value) || 1; // ใช้ค่า 1 ถ้าไม่ได้กรอก
+                const incomePerBoxVal = totalIncomeVal / boxCountVal;
 
                 // Update results
                 shellPercentage.textContent = formatNumber(percent);
@@ -248,6 +270,7 @@
                 goodIncome.textContent = formatNumber(goodIncomeVal);
                 badIncome.textContent = formatNumber(badIncomeVal);
                 totalIncome.textContent = formatNumber(totalIncomeVal);
+                incomePerBox.textContent = formatNumber(incomePerBoxVal);
             };
 
             // Add event listeners to all inputs
@@ -275,8 +298,27 @@
             facebookShareBtn.addEventListener('click', () => {
                 const resultPanel = document.getElementById('resultPanel');
                 html2canvas(resultPanel).then(canvas => {
-                    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(`ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`)}`;
-                    window.open(facebookShareUrl, "_blank");
+                    // แปลงรูปภาพเป็น Base64
+                    const imageData = canvas.toDataURL("image/png");
+                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    
+                    // ใช้ URI scheme ของ Facebook app โดยตรง
+                    const fbAppUrl = `fb://share?text=${encodeURIComponent(userMessage)}`;
+                    
+                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
+                    try {
+                        window.location.href = fbAppUrl;
+                        
+                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ Facebook ติดตั้ง
+                        setTimeout(() => {
+                            const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(userMessage)}`;
+                            window.open(facebookShareUrl, "_blank");
+                        }, 2000);
+                    } catch (e) {
+                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
+                        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(userMessage)}`;
+                        window.open(facebookShareUrl, "_blank");
+                    }
                 });
             });
 
@@ -284,8 +326,26 @@
             lineShareBtn.addEventListener('click', () => {
                 const resultPanel = document.getElementById('resultPanel');
                 html2canvas(resultPanel).then(canvas => {
-                    const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(`ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`)}`;
-                    window.open(lineShareUrl, "_blank");
+                    const imageData = canvas.toDataURL("image/png");
+                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    
+                    // ใช้ URI scheme ของ Line app โดยตรง
+                    const lineAppUrl = `line://msg/text/${encodeURIComponent(userMessage)}`;
+                    
+                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
+                    try {
+                        window.location.href = lineAppUrl;
+                        
+                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ Line ติดตั้ง
+                        setTimeout(() => {
+                            const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(userMessage)}`;
+                            window.open(lineShareUrl, "_blank");
+                        }, 2000);
+                    } catch (e) {
+                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
+                        const lineShareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(userMessage)}`;
+                        window.open(lineShareUrl, "_blank");
+                    }
                 });
             });
 
@@ -293,11 +353,48 @@
             saveImageBtn.addEventListener('click', () => {
                 const resultPanel = document.getElementById('resultPanel');
                 html2canvas(resultPanel).then(canvas => {
+                    // สำหรับอุปกรณ์ iOS บางรุ่น จำเป็นต้องใช้วิธีนี้
+                    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                        // แสดงรูปภาพในหน้าต่างใหม่เพื่อให้กดค้างที่รูปเพื่อบันทึกได้
+                        const imageWindow = window.open('');
+                        imageWindow.document.write('<img src="' + canvas.toDataURL("image/png") + '" alt="ผลการคำนวณไหม"/>');
+                        imageWindow.document.write('<p>กดค้างที่รูปภาพเพื่อบันทึก</p>');
+                        return;
+                    }
+                    
+                    // สำหรับ Android และ Desktop
                     const imageData = canvas.toDataURL("image/png");
                     const link = document.createElement("a");
                     link.href = imageData;
                     link.download = `ผลการคำนวณไหม-${userName.value || 'ผู้ใช้งาน'}.png`;
                     link.click();
+                });
+            });
+            
+            // WhatsApp share
+            const whatsappShareBtn = document.getElementById('whatsappShareBtn');
+            whatsappShareBtn.addEventListener('click', () => {
+                const resultPanel = document.getElementById('resultPanel');
+                html2canvas(resultPanel).then(canvas => {
+                    const userMessage = `ผลการคำนวณรังไหมของ ${userName.value || 'ผู้ใช้งาน'} - อัครพงษ์ฟาร์ม`;
+                    
+                    // ใช้ URI scheme ของ WhatsApp app โดยตรง
+                    const whatsappAppUrl = `whatsapp://send?text=${encodeURIComponent(userMessage)}`;
+                    
+                    // พยายามเปิด app ก่อน ถ้าไม่สำเร็จให้เปิดผ่านเบราว์เซอร์แทน
+                    try {
+                        window.location.href = whatsappAppUrl;
+                        
+                        // ถ้าหลังจาก 2 วินาทียังอยู่ในหน้าเดิม แสดงว่าไม่มีแอพ WhatsApp ติดตั้ง
+                        setTimeout(() => {
+                            const whatsappWebUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(userMessage)}`;
+                            window.open(whatsappWebUrl, "_blank");
+                        }, 2000);
+                    } catch (e) {
+                        // กรณีเกิดข้อผิดพลาด ให้เปิดผ่านเบราว์เซอร์แทน
+                        const whatsappWebUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(userMessage)}`;
+                        window.open(whatsappWebUrl, "_blank");
+                    }
                 });
             });
 
